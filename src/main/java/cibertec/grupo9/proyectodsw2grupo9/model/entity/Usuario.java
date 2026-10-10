@@ -27,7 +27,7 @@ public class Usuario {
     @Column(nullable = false)
     private Boolean estado = true;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "id_persona", nullable = false, unique = true)
     private Persona persona;
 
