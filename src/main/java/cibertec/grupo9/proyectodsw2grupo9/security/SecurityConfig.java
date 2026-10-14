@@ -30,15 +30,21 @@ public class SecurityConfig {
                 .cors(Customizer.withDefaults())
                 .sessionManagement(s -> s.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/auth/**").permitAll()
+                        .requestMatchers("/v1/api/auth/**", "/error").permitAll()
 
                         // Categorías: todos leen, solo ADMIN modifica
-                        .requestMatchers(HttpMethod.GET, "/api/categorias/**").hasAnyRole("ADMIN", "VENDEDOR")
-                        .requestMatchers("/api/categorias/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.GET, "/v1/api/categorias/**").hasAnyRole("ADMIN", "VENDEDOR")
+                        .requestMatchers("/v1/api/categorias/**").hasRole("ADMIN")
 
                         // Productos: solo ADMIN elimina
-                        .requestMatchers(HttpMethod.DELETE, "/api/productos/**").hasRole("ADMIN")
-                        .requestMatchers("/api/productos/**").hasAnyRole("ADMIN", "VENDEDOR")
+                        .requestMatchers(HttpMethod.DELETE, "/v1/api/productos/**").hasRole("ADMIN")
+                        .requestMatchers("/v1/api/productos/**").hasAnyRole("ADMIN", "VENDEDOR")
+
+                        // Ventas: ambos roles
+                        .requestMatchers("/v1/api/ventas/**").hasAnyRole("ADMIN", "VENDEDOR")
+
+                        // Usuarios y roles: solo ADMIN
+                        .requestMatchers("/v1/api/usuarios/**", "/v1/api/roles/**").hasRole("ADMIN")
 
                         .anyRequest().authenticated())
                 .exceptionHandling(e -> e
