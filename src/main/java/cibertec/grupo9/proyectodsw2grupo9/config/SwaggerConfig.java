@@ -16,7 +16,7 @@ public class SwaggerConfig {
     public OpenAPI openAPI(){
         return new OpenAPI()
                 .info(new Info()
-                        .title("Catálogo Service API")
+                        .title("Sistema de Gestion de inventario y ventas")
                         .description("Gestion de inventario y ventas para accesorios informaticos")
                         .version("v1.0.0")
                         .contact(new Contact()
