@@ -27,7 +27,11 @@ public class VentaDTO {
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private String username;
 
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+    private String estado;
+
     @NotEmpty(message = "El carrito está vacío")
     @Valid
     private List<DetalleVentaDTO> detalles;
+
 }

@@ -30,25 +30,34 @@ public class SecurityConfig {
                 .cors(Customizer.withDefaults())
                 .sessionManagement(s -> s.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/auth/**", "/v1/api/auth/**", "/error").permitAll()
+                        .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+                        .requestMatchers("/v1/api/auth/**", "/error").permitAll()
+
+                        .requestMatchers("/v1/api/auth/**", "/error").permitAll()
 
                         // Categorías: todos leen, solo ADMIN modifica
-                        .requestMatchers(HttpMethod.GET, "/api/categorias/**", "/v1/api/categorias/**").hasAnyRole("ADMIN", "VENDEDOR")
-                        .requestMatchers("/api/categorias/**", "/v1/api/categorias/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.GET, "/v1/api/categorias/**").hasAnyRole("ADMIN", "VENDEDOR")
+                        .requestMatchers("/v1/api/categorias/**").hasRole("ADMIN")
 
                         // Productos: solo ADMIN elimina
-                        .requestMatchers(HttpMethod.DELETE, "/api/productos/**", "/v1/api/productos/**").hasRole("ADMIN")
-                        .requestMatchers("/api/productos/**", "/v1/api/productos/**").hasAnyRole("ADMIN", "VENDEDOR")
+                        .requestMatchers(HttpMethod.DELETE, "/v1/api/productos/**").hasRole("ADMIN")
+                        .requestMatchers("/v1/api/productos/**").hasAnyRole("ADMIN", "VENDEDOR")
 
-                        // Ventas: ambos roles
-                        .requestMatchers("/api/ventas/**", "/v1/api/ventas/**").hasAnyRole("ADMIN", "VENDEDOR")
+                        // Ventas: solo ADMIN elimina, ambos roles para lo demás
+                        .requestMatchers(HttpMethod.DELETE, "/v1/api/ventas/**").hasRole("ADMIN")
+                        .requestMatchers("/v1/api/ventas/**").hasAnyRole("ADMIN", "VENDEDOR")
 
                         // Usuarios y roles: solo ADMIN
-                        .requestMatchers("/api/usuarios/**", "/v1/api/usuarios/**", "/api/roles/**", "/v1/api/roles/**").hasRole("ADMIN")
+                        .requestMatchers("/v1/api/usuarios/**", "/v1/api/roles/**").hasRole("ADMIN")
 
                         .anyRequest().authenticated())
                 .exceptionHandling(e -> e
-                        .authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED)))
+                        .authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED))
+                        .accessDeniedHandler((request, response, ex) -> {
+                            response.setStatus(HttpStatus.FORBIDDEN.value());
+                            response.setContentType("application/json");
+                            response.getWriter().write("{\"mensaje\":\"No tienes permisos para esta acción\"}");
+                        }))
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
