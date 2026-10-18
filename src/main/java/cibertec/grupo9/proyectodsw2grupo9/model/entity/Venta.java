@@ -24,6 +24,10 @@ public class Venta {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idVenta;
 
+    @Version
+    @Column(nullable = false, columnDefinition = "bigint default 0")
+    private Long version;
+
     @Column(nullable = false)
     private LocalDateTime fecha;
 
@@ -34,6 +38,11 @@ public class Venta {
     @JoinColumn(name = "id_usuario", nullable = false)
     private Usuario usuario;
 
+    @Column(nullable = false, length = 20)
+    @Builder.Default
+    private String estado = "CONFIRMADA";
+
     @OneToMany(mappedBy = "venta", cascade = CascadeType.ALL, orphanRemoval = true)
+    @Builder.Default
     private List<DetalleVenta> detalles = new ArrayList<>();
 }

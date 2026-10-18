@@ -40,7 +40,11 @@ public class JwtService {
 
     public boolean esValido(String token, UserDetails userDetails) {
         // parseSignedClaims ya lanza una excepción si la firma es falsa o el token expiró
-        return obtenerUsername(token).equals(userDetails.getUsername());
+        return userDetails.isEnabled()
+                && userDetails.isAccountNonLocked()
+                && userDetails.isAccountNonExpired()
+                && userDetails.isCredentialsNonExpired()
+                && userDetails.getUsername().equals(obtenerUsername(token));
     }
 
     private Claims obtenerClaims(String token) {
