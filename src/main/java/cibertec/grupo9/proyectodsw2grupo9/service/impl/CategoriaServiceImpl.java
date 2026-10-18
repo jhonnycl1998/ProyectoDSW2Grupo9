@@ -4,7 +4,7 @@ import cibertec.grupo9.proyectodsw2grupo9.exception.ResourceNotFoundException;
 import cibertec.grupo9.proyectodsw2grupo9.mapper.AppMapper;
 import cibertec.grupo9.proyectodsw2grupo9.model.dto.CategoriaDTO;
 import cibertec.grupo9.proyectodsw2grupo9.model.entity.Categoria;
-import cibertec.grupo9.proyectodsw2grupo9.reposiroty.CategoriaRepository;
+import cibertec.grupo9.proyectodsw2grupo9.repository.CategoriaRepository;
 import cibertec.grupo9.proyectodsw2grupo9.service.CategoriaService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

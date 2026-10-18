@@ -15,4 +15,6 @@ public class RolDTO {
     @NotBlank
     @Size(max = 30)
     private String nombre;
+
+    //DTO = DATA TRANSFER OBJECT OBJETO DE TRANSFERENCIA DE DATOS, esto sirve para evitar exponer tu entidad directamente cuando alguien hace consultas a tu API.
 }

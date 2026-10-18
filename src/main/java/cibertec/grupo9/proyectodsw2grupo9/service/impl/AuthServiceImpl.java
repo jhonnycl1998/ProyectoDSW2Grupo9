@@ -2,7 +2,7 @@ package cibertec.grupo9.proyectodsw2grupo9.service.impl;
 
 import cibertec.grupo9.proyectodsw2grupo9.model.dto.AuthDTO;
 import cibertec.grupo9.proyectodsw2grupo9.model.entity.Usuario;
-import cibertec.grupo9.proyectodsw2grupo9.reposiroty.UsuarioRepository;
+import cibertec.grupo9.proyectodsw2grupo9.repository.UsuarioRepository;
 import cibertec.grupo9.proyectodsw2grupo9.security.JwtService;
 import cibertec.grupo9.proyectodsw2grupo9.service.AuthService;
 import lombok.RequiredArgsConstructor;

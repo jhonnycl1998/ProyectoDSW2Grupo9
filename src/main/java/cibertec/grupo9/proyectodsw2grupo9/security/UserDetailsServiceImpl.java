@@ -1,7 +1,7 @@
 package cibertec.grupo9.proyectodsw2grupo9.security;
 
 import cibertec.grupo9.proyectodsw2grupo9.model.entity.Usuario;
-import cibertec.grupo9.proyectodsw2grupo9.reposiroty.UsuarioRepository;
+import cibertec.grupo9.proyectodsw2grupo9.repository.UsuarioRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;

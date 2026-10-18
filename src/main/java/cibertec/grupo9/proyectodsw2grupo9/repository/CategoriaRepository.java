@@ -1,4 +1,4 @@
-package cibertec.grupo9.proyectodsw2grupo9.reposiroty;
+package cibertec.grupo9.proyectodsw2grupo9.repository;
 
 import cibertec.grupo9.proyectodsw2grupo9.model.entity.Categoria;
 import org.springframework.data.jpa.repository.JpaRepository;
