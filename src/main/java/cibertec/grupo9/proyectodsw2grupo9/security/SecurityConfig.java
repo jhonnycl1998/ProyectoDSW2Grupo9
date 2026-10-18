@@ -33,8 +33,6 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                         .requestMatchers("/v1/api/auth/**", "/error").permitAll()
 
-                        .requestMatchers("/v1/api/auth/**", "/error").permitAll()
-
                         // Categorías: todos leen, solo ADMIN modifica
                         .requestMatchers(HttpMethod.GET, "/v1/api/categorias/**").hasAnyRole("ADMIN", "VENDEDOR")
                         .requestMatchers("/v1/api/categorias/**").hasRole("ADMIN")
@@ -49,6 +47,10 @@ public class SecurityConfig {
 
                         // Usuarios y roles: solo ADMIN
                         .requestMatchers("/v1/api/usuarios/**", "/v1/api/roles/**").hasRole("ADMIN")
+
+                        //Swagger
+                        .requestMatchers("/v1/api/auth/**", "/error",
+                                "/swagger-ui.html", "/swagger-ui/**", "/v3/api-docs/**").permitAll()
 
                         .anyRequest().authenticated())
                 .exceptionHandling(e -> e

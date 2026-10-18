@@ -46,12 +46,6 @@ public class VentaController {
         return ResponseEntity.ok(ventaService.anular(id, authentication.getName(), esAdmin));
     }
 
-    @PutMapping("/{id}/anular")
-    public ResponseEntity<VentaDTO> anularPut(@PathVariable Long id, Authentication authentication) {
-        boolean esAdmin = esUsuarioAdmin(authentication);
-        return ResponseEntity.ok(ventaService.anular(id, authentication.getName(), esAdmin));
-    }
-
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> eliminar(@PathVariable Long id) {
         ventaService.eliminar(id);
